@@ -622,6 +622,10 @@ int can_start(int handle, const can_bitrate_t *bitrate)
             }
             break;
     }
+
+    // Reset queues
+    (void)CAN_Reset(can[handle].board);
+
     // clear old status, errors and counters
     can[handle].status.byte = 0x00u;
     can[handle].error.lec = 0x00u;
@@ -1336,6 +1340,10 @@ static TPCANStatus pcan_get_filter(int handle, uint64_t *filter, filtering_t mod
             sts = PCAN_ERROR_CAUTION;
             break;
     }
+
+    // Reset queues
+    (void)CAN_Reset(can[handle].board);
+
     return sts;
 }
 
